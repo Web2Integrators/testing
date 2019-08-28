@@ -91,7 +91,7 @@ describe('ProductsService', () => {
      expect(service).toBeTruthy();
   });
 
-  it('Get Products', () => {
+  it('Get Products', (done) => {
     service.getProducts()
             // tslint:disable-next-line:no-shadowed-variable
             .subscribe(products2 => {
@@ -101,20 +101,14 @@ describe('ProductsService', () => {
                 expect(products2.length).toBe(5,
                     "incorrect number of products");
 
-
+                done();
 
             });
 
-    // const req = httpTestingController.expectOne(
-    //   req1 => req.headers.has('Authorization')
-
-    //         );
-    // console.log(req);
-    // const req = httpTestingController
-    // console.log(req.request.url + "fgfggfgfgfgfgfg");
-    // expect(req.request.method).toEqual("GET");
-
-    // req.flush(products);
+    const req = httpTestingController.expectOne('api/products');
+    console.log(req.request.url + 'fgfggfgfgfgfgfg');
+    expect(req.request.method).toEqual('GET');
+    req.flush(products);
   });
 
 });
